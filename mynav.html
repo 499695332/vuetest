@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div class="view">
+      <mynav></mynav>
+
+  </div>
+</body>
+</html>
+<script>
+    Vue.component("mynav",{
+            template:`<div class="navs">
+                        <ul class='nav' v-for="item in data">
+                            <li  @click="show(item)">{{item.title}}
+                                <ul   v-show="item.state" v-for="items in item.con">
+                                    <li>{{items.title}}</li>
+                                </ul>
+                             </li>
+                        </ul>
+                      </div>`,
+
+        data:function () {
+            return{
+                data:[{title:'分类1',state:'true', con:[{title:'内容1'},{title:'内容2'},{title:'内容3'}]},
+                      {title:'分类2',state:'true',  con:[{title:'内容4'},{title:'内容5'},{title:'内容6'}]}
+                      ],
+                state:"true"
+                  }
+        },
+        methods:{
+            show(item){
+                if(item.state){
+                    item.state = false;
+                }else{
+                    item.state = true;
+                }
+
+            }
+
+        }
+    })
+    new Vue({
+        el:".view"
+    })
+</script>
